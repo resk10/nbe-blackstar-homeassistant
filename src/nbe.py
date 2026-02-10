@@ -7,7 +7,7 @@
     Redistribution and use in source and binary forms,
     with or without modification, are permitted provided that the following conditions are met:
 
-    1. Redistributions of source code must retain the 
+    1. Redistributions of source code must retain the
        above copyright notice, this list of conditions and the following disclaimer.
 
     2. Redistributions in binary form must reproduce the above copyright notice,
@@ -84,7 +84,7 @@ def nbe_query():
        return items
     try:
        with Proxy(settings.config["nbe_pass"], settings.config["nbe_port"], settings.config["nbe_ip"], settings.config["nbe_serial"]) as proxy:
-            for query in [ "operating_data", "settings/boiler", "settings/hot_water" ]:
+            for query in [ "operating_data", "settings/boiler", "advanced_data" ]:
                response = proxy.get(query)
                for item in response:
                   val = item.split("=",1)
@@ -178,7 +178,7 @@ def start():
     client.on_connect=on_connect   #bind connect call back function
     client.on_message=on_message    #attach function to callback for subscriptions on the topics
     print("Connecting to broker ",settings.config["mqtt_server"])
-    client.connect(settings.config["mqtt_server"],settings.config["mqtt_port"])	#establish connection
+    client.connect(settings.config["mqtt_server"],settings.config["mqtt_port"]) #establish connection
     client.loop_start() #start network loop
     while not client.connected_flag and not client.bad_connection_flag: #wait in loop
         time.sleep(0.1)
