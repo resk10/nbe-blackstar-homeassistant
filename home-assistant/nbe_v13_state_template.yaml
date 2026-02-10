@@ -1,0 +1,56 @@
+# put this next line into configuration.yaml:
+# template: !include nbe_v13_state_template.yaml
+# and pleace the code below in nbe_v13_state_template.yaml in the same directory as configuration.yaml.
+# or just paste the whole thing into configuration.yaml, if you dislike seperate configuration files.
+
+template:
+  - sensor:
+      - name: "Pellet Burner State"
+        unique_id: nbe_state_v13_final
+        state: >
+          {% set state = states('sensor.nbe_blackstar_state') | int(-1) %}
+          {% set sub = states('sensor.nbe_blackstar_sub_state') | int(-1) %}
+          {% if state == 0 and sub == 0 %}
+            Off
+          {% elif state == 2 and sub == 1 %}
+            Ignition - Ventilating
+          {% elif state == 2 and sub == 2 %}
+            Ignition - Feeding Pellets
+          {% elif state == 2 and sub == 16 %}
+            Ignition - Overrun
+          {% elif state == 2 and sub == 3 %}
+            Ignition - Start Pulse
+          {% elif state == 2 and sub == 4 %}
+            Ignition - Igniting
+          {% elif state == 2 %}
+            Ignition
+          {% elif state == 5 and sub == 0 %}
+            Running
+          {% elif state == 5 and sub == 7 %}
+            Running - Blower Cleaning
+          {% elif state == 5 %}
+            Running
+          {% elif state == 43 and sub == 13 %}
+            Cleaning - Waiting for Valve
+          {% elif state == 43 and sub == 14 %}
+            Cleaning - Compressor Active
+          {% elif state == 43 and sub == 0 %}
+            Cleaning - Finishing
+          {% elif state == 43 %}
+            Cleaning
+          {% else %}
+            State {{ state }}.{{ sub }}
+          {% endif %}
+        icon: >
+          {% set state = states('sensor.nbe_blackstar_state') | int(-1) %}
+          {% if state == 0 %}
+            mdi:power-off
+          {% elif state == 2 %}
+            mdi:fire-circle
+          {% elif state == 5 %}
+            mdi:fire
+          {% elif state == 43 %}
+            mdi:broom
+          {% else %}
+            mdi:help-circle
+          {% endif %}
