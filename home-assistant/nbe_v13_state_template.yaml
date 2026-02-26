@@ -1,17 +1,20 @@
-# put this next line into configuration.yaml:
-# template: !include nbe_v13_state_template.yaml
-# and pleace the code below in nbe_v13_state_template.yaml in the same directory as configuration.yaml.
-# or just paste the whole thing into configuration.yaml, if you dislike seperate configuration files.
+# NBE v13 State Template
+# Updated with all discovered states as of latest observations
+# Add to configuration.yaml
 
 template:
   - sensor:
       - name: "Pellet Burner State"
-        unique_id: nbe_state_v13_final
+        unique_id: nbe_state_v13_complete
         state: >
           {% set state = states('sensor.nbe_blackstar_state') | int(-1) %}
           {% set sub = states('sensor.nbe_blackstar_sub_state') | int(-1) %}
+          
+          {# State 0 - OFF #}
           {% if state == 0 and sub == 0 %}
             Off
+          
+          {# State 2 - Ignition sequence #}
           {% elif state == 2 and sub == 1 %}
             Ignition - Ventilating
           {% elif state == 2 and sub == 2 %}
@@ -24,12 +27,32 @@ template:
             Ignition - Igniting
           {% elif state == 2 %}
             Ignition
+          
+          {# State 5 - Running #}
           {% elif state == 5 and sub == 0 %}
             Running
           {% elif state == 5 and sub == 7 %}
             Running - Blower Cleaning
+          {% elif state == 5 and sub == 15 %}
+            Running - External Contact Timeout
           {% elif state == 5 %}
             Running
+          
+          {# State 9 - Stopped (Max Temp) #}
+          {% elif state == 9 and sub == 0 %}
+            Stopped - Max Temperature
+          {% elif state == 9 %}
+            Stopped
+          
+          {# State 24 - Stopped by External Contact #}
+          {% elif state == 24 and sub == 6 %}
+            Stopped - External Contact (Cooling)
+          {% elif state == 24 and sub == 0 %}
+            Stopped - External Contact
+          {% elif state == 24 %}
+            Stopped - External Contact
+          
+          {# State 43 - Cleaning #}
           {% elif state == 43 and sub == 13 %}
             Cleaning - Waiting for Valve
           {% elif state == 43 and sub == 14 %}
@@ -38,6 +61,8 @@ template:
             Cleaning - Finishing
           {% elif state == 43 %}
             Cleaning
+          
+          {# Unknown states - show for discovery #}
           {% else %}
             State {{ state }}.{{ sub }}
           {% endif %}
@@ -49,6 +74,10 @@ template:
             mdi:fire-circle
           {% elif state == 5 %}
             mdi:fire
+          {% elif state == 9 %}
+            mdi:thermometer-alert
+          {% elif state == 24 %}
+            mdi:stop-circle
           {% elif state == 43 %}
             mdi:broom
           {% else %}
