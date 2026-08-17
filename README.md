@@ -11,18 +11,18 @@
 
 # Compatible Pellet Burners
 
-* NBE RTB 10 (v13 controller)
-* NBE RTB 10 VAC (v13 controller)
-* NBE RTB 16 (v13 controller)
-* NBE RTB 16 VAC (v13 controller)
-* NBE RTB 30 (v13 controller)
-* NBE RTB 30 VAC (v13 controller)
-* NBE RTB 50 (v13 controller)
-* NBE RTB 50 VAC (v13 controller)
-* NBE RTB 80 (v13 controller)
-* NBE BS+ (Blackstar+) 10 (v13 controller)
-* NBE BS+ (Blackstar+) 16 (v13 controller)
-* NBE BS+ (Blackstar+) 25 (v13 controller)
+* NBE RTB 10kw (v13 controller)
+* NBE RTB 10kw VAC (v13 controller)
+* NBE RTB 16kw (v13 controller)
+* NBE RTB 16kw VAC (v13 controller)
+* NBE RTB 30kw (v13 controller)
+* NBE RTB 30kw VAC (v13 controller)
+* NBE RTB 50kw (v13 controller)
+* NBE RTB 50kw VAC (v13 controller)
+* NBE RTB 80kw (v13 controller)
+* NBE BS+ (Blackstar+) 10kw (v13 controller)
+* NBE BS+ (Blackstar+) 16kw (v13 controller)
+* NBE BS+ (Blackstar+) 25kw (v13 controller)
 
 If you don't know what model you are using, try to open pellet burner door and look over there, then compare with the user manual of most common models, it can be found [here](https://www.nbe.dk/wp-content/uploads/2017/07/RTB-BS-Manual-V13-ENG-08.03.2017.pdf)
 
