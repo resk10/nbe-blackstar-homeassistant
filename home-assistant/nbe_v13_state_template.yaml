@@ -54,9 +54,9 @@ template:
           
           {# State 42 - O2 Sensor Error #}
           {% elif state == 42 and sub == 0 %}
-            O2 sensor fejl
+            O2 sensor error
           {% elif state == 42 %}
-            O2 sensor fejl
+            O2 sensor error
           
           {# State 43 - Cleaning #}
           {% elif state == 43 and sub == 13 %}
